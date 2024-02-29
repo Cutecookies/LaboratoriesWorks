@@ -2,6 +2,7 @@
 #define PROJECT1_VECTOR_H
 
 # include "stdlib.h"
+# include "stdbool.h"
 
 typedef struct vector {
     int *data; // указатель на элементы вектора
@@ -24,8 +25,19 @@ void clear(vector *v);
 // неиспользуемые элементы.
 void shrinkToFit(vector *v);
 
-// освобождает память, выделенную век-
-// тору.
+// освобождает память, выделенную вектору.
 void deleteVector(vector *v);
+
+// является ли вектор пустым.
+bool isEmpty(vector *v);
+
+// является ли вектор полным.
+bool isFull(vector *v);
+
+// возвращает i-ый элемент вектора v.
+int getVectorValue(vector *v, size_t i);
+
+// добавляет элемент x в конец вектора v.
+void pushBack(vector *v, int x);
 
 #endif //PROJECT1_VECTOR_H
