@@ -3,25 +3,47 @@
 #include <assert.h>
 #include "libs/data_structures/vector/vector.h"
 
-// Вектор пустой
-void test_pushBack_emptyVector() {
-    vector v = createVector(0);
-    int x = 5;
-    pushBack(&v, x);
-
-    assert(v.size = 1);
-    assert(v.data[0] = x);
-}
-
-// Вектор заполнен
-void test_pushBack_fullVector();
-
-void test() {
-    test_pushBack_emptyVector();
-}
-
 int main() {
-    test();
+    vector v = createVector(7);
+    int data[] = {1, 3, 5, 7, 8, 12};
+    v.data = data;
+    v.size = 4;
+
+    printf("%zu %zu\n", v.size, v.capacity);
+    for (int i = 0; i < v.size; i++) {
+        printf("%d ", v.data[i]);
+    }
+    printf("\n");
+
+    reserve(&v, 5);
+    printf("%zu %zu\n", v.size, v.capacity);
+    for (int i = 0; i < v.size; i++) {
+        printf("%d ", v.data[i]);
+    }
+    printf("\n");
+
+    clear(&v);
+    printf("%zu %zu\n", v.size, v.capacity);
+    for (int i = 0; i < v.size; i++) {
+        printf("%d ", v.data[i]);
+    }
+    printf("\n");
+
+    v.data = data;
+    v.size = 4;
+
+    shrinkToFit(&v);
+    printf("%zu %zu\n", v.size, v.capacity);
+    for (int i = 0; i < v.size; i++) {
+        printf("%d ", v.data[i]);
+    }
+    printf("\n");
+
+    deleteVector(&v);
+    printf("%zu %zu\n", v.size, v.capacity);
+    for (int i = 0; i < v.size; i++) {
+        printf("%d ", v.data[i]);
+    }
 
     return 0;
 }

@@ -17,17 +17,34 @@ vector createVector(size_t n) {
 }
 
 void reserve(vector *v, size_t newCapacity) {
-    int *new_data = (int *) realloc(v->data,
-                                    newCapacity * sizeof(int *));
-    if (!new_data) {
-        fprintf(stderr, "bad alloc");
-        exit(1);
+    if (newCapacity){
+        if (v->data == NULL){
+            v->data = malloc(newCapacity * sizeof(int));
+        }
+        else {
+            int *new_data = malloc(newCapacity * sizeof(int));
+
+            if (new_data == NULL) {
+                fprintf(stderr, "bad alloc");
+                exit(1);
+            }
+
+            if (new_data != v->data) {
+                new_data = v->data;
+                v->data = new_data;
+            }
+
+            if (v->size > newCapacity)
+                v->size = newCapacity;
+        }
+
+        v->capacity = newCapacity;
     }
-
-    if (newCapacity < v->size)
-        v->size = newCapacity;
-
-    v->capacity = newCapacity;
+    else{
+        v->size = 0;
+        v->capacity = 0;
+        v->data = NULL;
+    }
 }
 
 void clear(vector *v) {
@@ -39,7 +56,8 @@ void shrinkToFit(vector *v) {
 }
 
 void deleteVector(vector *v) {
-    free(v->data);
+    v->data = NULL;
     v->size = 0;
     v->capacity = 0;
 }
+
